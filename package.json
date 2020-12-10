@@ -1,0 +1,36 @@
+{
+  "name": "commander-gulp-util",
+  "version": "1.0.0",
+  "description": "Compilación de pug dinámicamente",
+  "main": "./bin/util.js",
+  "author": "Jesús Antonio Ugaz Vegas",
+  "email": "jesusugazv@gmail.com",
+  "license": "MIT",
+  "bin": {
+    "commander-gulp-util": "./bin/util.js"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "commander": "^3.0.2",
+    "figlet": "^1.5.0",
+    "fs": "0.0.1-security",
+    "graceful-fs": "^4.2.4",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-debug": "^4.0.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-util": "^3.0.8",
+    "path": "^0.12.7"
+  },
+  "scripts": {
+    "util": "node ./bin/util util \"frontend/src/static/svg\" --ut \"docs/svg\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jugaz/commander-gulp-util.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jugaz/commander-gulp-util/issues"
+  },
+  "homepage": "https://github.com/jugaz/commander-gulp-util#readme"
+}
