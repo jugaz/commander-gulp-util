@@ -9,6 +9,8 @@ var
     util = require('gulp-util'),
     { src, dest, series, parallel } = require("gulp");
 const  fs = require('fs');
+const { basename, dirname } = require('path');
+const { callbackify } = require('util');
 
 
 
@@ -31,31 +33,20 @@ program
     .action((input, options) => {
         var input = options.input || options.parent.rawArgs;
         var ouput = options.ouput || options.ut;
-        console.log("input",input)
- 
-        input=input.map(function(index,value){
-            console.log(index)
-            console.log(value)
-            fs.stat(index,function(err, stats) { 
-                try {
-                    if(stats.isDirectory() == true ){
-                        console.log( stats.isDirectory())
-                            return index;
-                      
-                    }
-                } catch (error) {
-                    
+        var files = []
+        input = input.forEach(element => {
+            if (fs.existsSync(element)) {
+                var stat = fs.statSync(element);
+                if (stat.isDirectory() && element !== ouput) {
+                    files.push(element)
+                   
                 }
-                
-               
-            });  
+              }
         });
-           
-            
-        console.log("input",input)
-        console.log("ouput",ouput)
+       
         
-        return src(input, { allowEmpty: true })
+        
+        return src(files, { allowEmpty: true })
             .pipe(debug({
                 title: 'commader-gulp-util:'
             }))
