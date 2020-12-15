@@ -1,6 +1,6 @@
 {
   "name": "commander-gulp-util",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Compilación utiles dinámicamente",
   "main": "./bin/util.js",
   "author": "Jesús Antonio Ugaz Vegas",
@@ -22,7 +22,7 @@
     "gulp-util": "^3.0.8"
   },
   "scripts": {
-    "util": "node ./bin/util util \"frontend/src/static/images\" \"frontend/src/static/svg\" --ut \"docs/\""
+    "preinstall": "node ./bin/pre-cli-util.js"
   },
   "repository": {
     "type": "git",

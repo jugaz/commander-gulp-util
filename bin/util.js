@@ -2,15 +2,12 @@
 
 var
     debug = require('gulp-debug'),
-    program = require('commander'),
+    fs = require('fs'),
     path = require('path'),
-    entorno,
+    program = require('commander'),
     uglify = require('gulp-uglify'),
     util = require('gulp-util'),
     { src, dest, series, parallel } = require("gulp");
-const  fs = require('fs');
-const { basename, dirname } = require('path');
-const { callbackify } = require('util');
 
 
 
@@ -39,7 +36,6 @@ program
                 var stat = fs.statSync(element);
                 if (stat.isDirectory() && element !== ouput) {
                     files.push(element)
-                   
                 }
               }
         });
@@ -58,9 +54,7 @@ program
                 util.log("Error Line:", error.line);
                 util.log("Error Column:", error.column);
                 util.log("Error Msg", error.Msg);
-
             })
-            .pipe( entorno ? uglify({compress:{drop_console: true}}) : util.noop() )
             .pipe(dest(ouput))
             .on('end', function () {
                 util.log('Done!');
