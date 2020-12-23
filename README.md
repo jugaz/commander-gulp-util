@@ -27,6 +27,6 @@ $ commander-gulp-util clean 'entry'
 ```bash
  "scripts": {
     "fonts": "commander-gulp-util util \"frontend/src/static/font/" --ut  \"docs\"",
-    "clean": "commander-gulp-util clean\"docs\""
+    "clean": "commander-gulp-util clean \"docs\""
   }
 ```
