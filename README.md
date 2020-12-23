@@ -8,21 +8,21 @@
 ![npm: version (tag)](https://img.shields.io/badge/npm-v7.0.15-red?style=for-the-badge)
 ![node: version (tag](https://img.shields.io/badge/node-v15.4.0-green?style=for-the-badge)
 
-## Installation
+## Instalación
 
 ```bash
 $ npm install commander-gulp-util
 ```
 
 
-#### Command to Compile
+### Comando a ejecutar
 
 ```bash
 $ commander-gulp-util util 'entry' --ut  'ouput'
 $ commander-gulp-util clean 'entry' 
 ```
 
-#### Example
+### Configuración por el package.json
 
 ```bash
  "scripts": {
