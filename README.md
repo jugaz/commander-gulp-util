@@ -18,13 +18,15 @@ $ npm install commander-gulp-util
 #### Command to Compile
 
 ```bash
-$ commander-gulp-util util 'entry' --t 'ouput' 
+$ commander-gulp-util util 'entry' --ut  'ouput'
+$ commander-gulp-util clean 'entry' 
 ```
 
 #### Example
 
 ```bash
  "scripts": {
-    "util": "commander-gulp-util util \"frontend/src/fonts\" --ut  \"docs/\"",
+    "fonts": "commander-gulp-util util \"frontend/src/static/font/" --ut  \"docs\"",
+    "clean": "commander-gulp-util clean\"docs\""
   }
 ```

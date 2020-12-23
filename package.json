@@ -1,6 +1,6 @@
 {
   "name": "commander-gulp-util",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Compilación utiles dinámicamente",
   "main": "./bin/util.js",
   "author": "Jesús Antonio Ugaz Vegas",
@@ -12,6 +12,7 @@
   "dependencies": {
     "chalk": "^4.1.0",
     "commander": "^3.0.2",
+    "del": "^6.0.0",
     "figlet": "^1.5.0",
     "fs": "0.0.1-security",
     "graceful-fs": "^4.2.4",
@@ -24,6 +25,15 @@
   "scripts": {
     "preinstall": "node ./bin/pre-cli-util.js"
   },
+  "keywords": [
+    "util",
+    "files",
+    "documents",
+    "clean",
+    "gulp",
+    "commander-gulp-util",
+    "commander"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jugaz/commander-gulp-util.git"
