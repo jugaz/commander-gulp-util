@@ -1,6 +1,6 @@
 {
   "name": "commander-gulp-util",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Compilación utiles dinámicamente",
   "main": "./bin/util.js",
   "author": "Jesús Antonio Ugaz Vegas",
