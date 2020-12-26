@@ -3,11 +3,11 @@
 var
     debug = require('gulp-debug'),
     fs = require('fs'),
-    del = require('del'),
-    path = require('path'),
+    named = require('vinyl-named'),
+    clean = require('del'),
     program  = require('commander'),
-    uglify = require('gulp-uglify'),
     util = require('gulp-util'),
+    webpack = require('webpack-stream'),
     { src, dest, series, parallel } = require("gulp");
 
 
@@ -32,11 +32,17 @@ program
         var input = options.input || options.parent.rawArgs;
         var ouput = options.ouput || options.ut;
         var files = []
+        function error(){
+            util.log("No existe la carpeta o carpetas")
+        }
         input = input.forEach(element => {
             if (fs.existsSync(element)) {
                 var stat = fs.statSync(element);
                 if (stat.isDirectory() && element !== ouput) {
                     files.push(element)
+                }
+                else if(stat.isDirectory()=="undefine" || stat.isDirectory()=="" || stat.isDirectory() !=element ) {
+                    return error()
                 }
               }
         });
@@ -67,21 +73,35 @@ program
     .action((input, options) => {
         var input = options.input || options.parent.rawArgs;
         var files = []
+        function error(){
+            util.log("No existe la carpeta o carpetas")
+        }
+
         input = input.forEach(element => {
             if (fs.existsSync(element)) {
                 var stat = fs.statSync(element);
+                
                 if (stat.isDirectory()) {
                     return files.push(element)
                 }
-                else if(stat.isDirectory()=="undefine" || stat.isDirectory()=="") {
-                    return files.push("docs/")
+        
+                else if(stat.isDirectory()=="undefine" || stat.isDirectory()=="" || stat.isDirectory() !=element ) {
+                    return error()
                 }
+                
               }
         });
         return src(files, { allowEmpty: true })
             .pipe(debug({
-                title: 'commader-gulp-clean:'
+                title: 'commader-gulp-util:'
             }))
+            .pipe(named())
+            .pipe(webpack({
+                watch: false
+            }))
+  
+            .pipe(dest(clean(files,{force:true})))
+
             .on('error', function (error) {
                 // tenemos un error 
                 util.log("Error Name:", error.name);
@@ -91,11 +111,11 @@ program
                 util.log("Error Column:", error.column);
                 util.log("Error Msg", error.Msg);
             })
-            .pipe(dest(del(files)))
             .on('end', function () {
                 util.log('Done!');
             });
-    })
+        })
+        
         
         
 

@@ -1,5 +1,5 @@
 # Commander Gulp Util Dynamic
-
+<style>.markdown-body pre code {cursor:auto}</style>
 <p>Compilación utiles dinámicamente</p>
 
 ![commander: version (tag)](https://img.shields.io/badge/commander-v3.0.2-blue?style=for-the-badge)
@@ -26,7 +26,10 @@ $ commander-gulp-util clean 'entry'
 
 ```bash
  "scripts": {
-    "fonts": "commander-gulp-util util \"frontend/src/static/font/" --ut  \"docs\"",
-    "clean": "commander-gulp-util clean \"docs\""
+    "fonts": "commander-gulp-util util \"frontend/src/static/font/\" --ut \"docs/\"",
+    "clean": "commander-gulp-util clean \"docs/\""
+
   }
 ```
+### Link
+https://jugaz.github.io/commander-gulp-util/
