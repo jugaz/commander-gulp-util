@@ -1,6 +1,6 @@
 {
   "name": "commander-gulp-util",
-  "version": "1.0.9",
+  "version": "2.0.0",
   "description": "Compilación utiles dinámicamente",
   "main": "./bin/util.js",
   "author": "Jesús Antonio Ugaz Vegas",
@@ -19,6 +19,7 @@
     "gulp": "^4.0.2",
     "gulp-debug": "^4.0.0",
     "gulp-util": "^3.0.8",
+    "path": "^0.12.7",
     "vinyl-named": "^1.1.0",
     "webpack-stream": "^6.1.1"
   },
