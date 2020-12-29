@@ -1,16 +1,19 @@
 #!/usr/bin/env node
 
 var
-    debug = require('gulp-debug'),
-    fs = require('fs'),
-    path = require('path'),
-    named = require('vinyl-named'),
+    $directory = require('directory-exists'),
+    fileExists = require('file-exists'),
     clean = require('del'),
-    program  = require('commander'),
+    debug = require('gulp-debug'),
+    dirTree = require("directory-tree"),
+    extfs = require('extfs'),
+    fs = require('fs'),
+    named = require('vinyl-named'),
+    path = require('path'),
+    program = require('commander'),
     util = require('gulp-util'),
     webpack = require('webpack-stream'),
     { src, dest, series, parallel } = require("gulp");
-
 
 
 /* ######################## OPTIONS ######################## */
@@ -24,73 +27,84 @@ program
     )
 
 /* ######################## GULP UTIL ###################### */
-// example node .bin/util.js util \"dist/\"",
+// example "copy": "node ./bin/util copy \"frontend/src/static/fonts\" \"frontend/src/static/svg\" --co \"docs/\""
+
 
 program
-    .command('util <dir>')
-    .option("--ut [options]")
+    .command('copy <dir>')
+    .option("--co [options]")
     .action((input, options) => {
         var input = options.input || options.parent.rawArgs;
-        var ouput = options.ouput || options.ut;
-  
+        var ouput = options.ouput || options.co;
         var directory = [];
-        input = input.forEach(element => {
-            if (fs.existsSync(element)) {
-                var dir = fs.statSync(element);
-                var $true = dir.isDirectory();
-                var $true2 = dir.isDirectory() === true;
-                if ($true2  && $true !=='/home/jugaz/.nvm/versions/node/v15.4.0/bin/node' && $true !== '/home/jugaz/Escritorio/Developer/.Github/commander-gulp-util/bin/util.js') {
-                    return directory.push(element)
-                }
+  
+        input.forEach(element => {
+            var $dir = $directory.sync(element);
+            var emapty = extfs.isEmptySync(element);
+            if($dir === true && element!==ouput && emapty !==true) {
+                var tree = dirTree(element);
+                var children = tree.children;
+                children.forEach(index =>{
+                    var result = index.path;
+                    return directory.push(result)
+                })
             }
+            
         });
-        if(directory.length === 0 || directory === "undefine") {
-            return util.log("No existe la carpeta o carpetas")
+        input.filter(function(index,value){
+            var $fil = fileExists.sync(index);
+
+            if($fil ===true && index !=="/home/jugaz/.nvm/versions/node/v15.4.0/bin/node" && index!=="/home/jugaz/Escritorio/Developer/.Github/commander-gulp-util/bin/util"){
+                return directory.push(index)
+            }
+        })
+
+        if(directory.length === 0 || directory === "undefine" ) {
+            return util.log("No existe el directory o los archivos")
         }
+   
         else {
-            return src(files, { allowEmpty: true })
+            return src(directory, { allowEmpty: false })
                 .pipe(debug({
                     title: 'commader-gulp-util:'
                 }))
+
                 .on('error', function (error) {
-                    // tenemos un error 
+
                     util.log("Error Name:", error.name);
                     util.log("Error Code:", error.code);
                     util.log("Error Filename:", error.filename);
                     util.log("Error Line:", error.line);
                     util.log("Error Column:", error.column);
                     util.log("Error Msg", error.Msg);
+                    
                 })
                 .pipe(dest(ouput))
                 .on('end', function () {
                     util.log('Done!');
                 });
         }
+        
+            
        
-    })
-
+})
 /* ######################## GULP CLEAN ###################### */
-// example node util.js clean 'svg/'  
+// example node ./bin/util.js clean 'dist/' 
 program
     .command('clean <dir>')
     .action((input, options) => {
         var input = options.input || options.parent.rawArgs;
         var directory = [];
         input = input.forEach(element => {
-            if (fs.existsSync(element)) {
-                var dir = fs.statSync(element);
-                var $true = dir.isDirectory();
-                var $true2 = dir.isDirectory() === true;
-                if ($true2  && $true !=='/home/jugaz/.nvm/versions/node/v15.4.0/bin/node' && $true !== '/home/jugaz/Escritorio/Developer/.Github/commander-gulp-util/bin/util.js') {
-                    return directory.push(element)
-                }
+            var $dir = $directory.sync(element);
+            var emapty = extfs.isEmptySync(element);
+            if ($dir === true && $dir  !=='/home/jugaz/.nvm/versions/node/v15.4.0/bin/node' && $dir !== '/home/jugaz/Escritorio/Developer/.Github/commander-gulp-util/bin/util.js'&& emapty !==true) {
+                return directory.push(element)
             }
         });
  
-     
-    
-     
-        if(directory.length === 0 || directory === "undefine") {
+
+        if(directory.length === 0 || directory === "undefine" ) {
             return util.log("No existe la carpeta o carpetas")
         }
         else {
@@ -107,17 +121,15 @@ program
 
                 .on('error', function (error) {
                     // tenemos un error 
-                    if(directory ==="" ) {
+        
+                
+                    util.log("Error Name:", error.name);
+                    util.log("Error Code:", error.code);
+                    util.log("Error Filename:", error.filename);
+                    util.log("Error Line:", error.line);
+                    util.log("Error Column:", error.column);
+                    util.log("Error Msg", error.Msg);
                     
-                    }
-                    else {
-                        util.log("Error Name:", error.name);
-                        util.log("Error Code:", error.code);
-                        util.log("Error Filename:", error.filename);
-                        util.log("Error Line:", error.line);
-                        util.log("Error Column:", error.column);
-                        util.log("Error Msg", error.Msg);
-                    }
                 })
                 .on('end', function () {
                     util.log('Done!');
