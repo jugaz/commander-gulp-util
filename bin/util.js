@@ -60,7 +60,7 @@ program
         })
 
         if(directory.length === 0 || directory === "undefine" ) {
-            return util.log("No existe el directory o los archivos")
+            return util.log("Error: No existe el directory o los archivos")
         }
    
         else {
@@ -105,7 +105,7 @@ program
  
 
         if(directory.length === 0 || directory === "undefine" ) {
-            return util.log("No existe la carpeta o carpetas")
+            return util.log("Error: No existe la carpeta o carpetas")
         }
         else {
             return src(directory, { allowEmpty: true })
