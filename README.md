@@ -18,7 +18,6 @@ $ npm install commander-gulp-util
 ### Comando a ejecutar
 
 ```bash
-$ commander-gulp-util copy 'entry' --co  'ouput'
 $ commander-gulp-util clean 'entry' 
 ```
 
@@ -26,7 +25,6 @@ $ commander-gulp-util clean 'entry'
 
 ```bash
  "scripts": {
-    "fonts": "commander-gulp-util copy \"frontend/src/static/fonts/\" --co \"docs/fonts\"",
     "clean": "commander-gulp-util clean \"docs/\""
 
   }
